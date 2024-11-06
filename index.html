@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Rubros y Productos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Registro de Rubros y Productos</h1>
+
+    <div class="form-container">
+        <h2>Agregar Producto</h2>
+        <form id="productForm">
+            <label for="rubro">Rubro:</label>
+            <input type="text" id="rubro" required>
+
+            <label for="product">Producto:</label>
+            <input type="text" id="product" required>
+
+            <label for="price">Precio:</label>
+            <input type="number" id="price" required>
+
+            <button type="submit">Agregar</button>
+        </form>
+    </div>
+
+    <div class="list-container">
+        <h2>Productos Registrados</h2>
+        <div id="productList"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
