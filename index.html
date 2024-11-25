@@ -4,7 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Rubros y Productos</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .form-container, .list-container {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
     <h1>Registro de Rubros y Productos</h1>
@@ -13,13 +54,16 @@
         <h2>Agregar Producto</h2>
         <form id="productForm">
             <label for="rubro">Rubro:</label>
-            <input type="text" id="rubro" required>
+            <input type="text" id="rubro" placeholder="Ejemplo: Alimentos" required>
 
             <label for="product">Producto:</label>
-            <input type="text" id="product" required>
+            <input type="text" id="product" placeholder="Ejemplo: Manzanas" required>
 
             <label for="price">Precio:</label>
-            <input type="number" id="price" required>
+            <input type="number" id="price" step="0.01" placeholder="Ejemplo: 10.50" required>
+
+            <label for="stock">Stock:</label>
+            <input type="number" id="stock" min="0" placeholder="Ejemplo: 100" required>
 
             <button type="submit">Agregar</button>
         </form>
