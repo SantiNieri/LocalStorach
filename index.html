@@ -3,76 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Rubros y Productos</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            line-height: 1.6;
-        }
-        .form-container, .list-container {
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-        ul {
-            list-style-type: disc;
-            margin-left: 20px;
-        }
-        li {
-            margin-bottom: 5px;
-        }
-    </style>
+    <title>Gestión de Productos</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Registro de Rubros y Productos</h1>
+    <h1>Gestión de Productos</h1>
+    <form id="productForm">
+        <label for="rubro">Rubro:</label>
+        <input type="text" id="rubro" required>
+        <label for="product">Producto:</label>
+        <input type="text" id="product" required>
+        <label for="price">Precio:</label>
+        <input type="number" id="price" required>
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" required>
+        <button type="submit">Agregar</button>
+    </form>
 
-    <div class="form-container">
-        <h2>Agregar Producto</h2>
-        <form id="productForm">
-            <label for="rubro">Rubro:</label>
-            <input type="text" id="rubro" placeholder="Ejemplo: Alimentos" required>
-
-            <label for="product">Producto:</label>
-            <input type="text" id="product" placeholder="Ejemplo: Manzanas" required>
-
-            <label for="price">Precio:</label>
-            <input type="number" id="price" step="0.01" placeholder="Ejemplo: 10.50" required>
-
-            <label for="stock">Stock:</label>
-            <input type="number" id="stock" min="0" placeholder="Ejemplo: 100" required>
-
-            <button type="submit">Agregar</button>
-        </form>
-    </div>
-
-    <div class="list-container">
-        <h2>Productos Registrados</h2>
-        <div id="productList"></div>
-    </div>
+    <div id="productList"></div>
 
     <script src="script.js"></script>
 </body>

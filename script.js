@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', displayProducts);
 
 function saveProduct(rubro, product, price, stock) {
     let products = JSON.parse(localStorage.getItem('products')) || {};
-
     rubro = rubro.toLowerCase();
 
     if (!products[rubro]) {
@@ -30,14 +29,11 @@ function updateProduct(rubro, index, product, price, stock) {
 
 function deleteProduct(rubro, index) {
     let products = JSON.parse(localStorage.getItem('products')) || {};
-
     if (products[rubro]) {
         products[rubro].splice(index, 1);
-
         if (products[rubro].length === 0) {
             delete products[rubro];
         }
-
         localStorage.setItem('products', JSON.stringify(products));
         displayProducts();
     }
@@ -45,32 +41,28 @@ function deleteProduct(rubro, index) {
 
 function displayProducts() {
     productList.innerHTML = '';
-
     const products = JSON.parse(localStorage.getItem('products')) || {};
     let grandTotal = 0;
 
     for (let rubro in products) {
         const rubroContainer = document.createElement('div');
         rubroContainer.classList.add('rubro-container');
-
-        const rubroTitle = document.createElement('h3');
-        rubroTitle.textContent = rubro.charAt(0).toUpperCase() + rubro.slice(1);
-        rubroContainer.appendChild(rubroTitle);
+        rubroContainer.innerHTML = `<h3>${rubro.charAt(0).toUpperCase() + rubro.slice(1)}</h3>`;
 
         const table = document.createElement('table');
-        table.innerHTML = `
-            <thead>
-                <tr>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Stock</th>
-                    <th>Valor Total</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
+        const thead = document.createElement('thead');
+        thead.innerHTML = `
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Valor Total</th>
+                <th>Acciones</th>
+            </tr>
         `;
-        const tbody = table.querySelector('tbody');
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
         let rubroTotal = 0;
 
         products[rubro].forEach((product, index) => {
@@ -93,12 +85,13 @@ function displayProducts() {
 
         const totalRow = document.createElement('tr');
         totalRow.innerHTML = `
-            <td colspan="3" style="font-weight: bold;">Total de ${rubro.charAt(0).toUpperCase() + rubro.slice(1)}:</td>
+            <td colspan="3" style="font-weight: bold;">Total de ${rubro.charAt(0).toUpperCase() + rubro.slice(1)}</td>
             <td style="font-weight: bold;">$${rubroTotal.toFixed(2)}</td>
             <td></td>
         `;
         tbody.appendChild(totalRow);
 
+        table.appendChild(tbody);
         rubroContainer.appendChild(table);
         productList.appendChild(rubroContainer);
 
@@ -108,7 +101,6 @@ function displayProducts() {
     if (grandTotal > 0) {
         const grandTotalDiv = document.createElement('div');
         grandTotalDiv.innerHTML = `<h2>Total General: $${grandTotal.toFixed(2)}</h2>`;
-        grandTotalDiv.style.marginTop = '20px';
         productList.appendChild(grandTotalDiv);
     }
 
@@ -155,14 +147,11 @@ productForm.addEventListener('submit', (e) => {
     if (rubro && product && !isNaN(price) && !isNaN(stock)) {
         if (currentEdit) {
             updateProduct(currentEdit.rubro, currentEdit.index, product, price, stock);
-
             currentEdit = null;
-            const submitButton = productForm.querySelector('button');
-            submitButton.textContent = 'Agregar';
+            productForm.querySelector('button').textContent = 'Agregar';
         } else {
             saveProduct(rubro, product, price, stock);
         }
-
         displayProducts();
         productForm.reset();
     } else {
