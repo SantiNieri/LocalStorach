@@ -47,38 +47,59 @@ function displayProducts() {
     productList.innerHTML = '';
 
     const products = JSON.parse(localStorage.getItem('products')) || {};
-
     let grandTotal = 0;
 
     for (let rubro in products) {
         const rubroContainer = document.createElement('div');
-        rubroContainer.innerHTML = `<h3>${rubro.charAt(0).toUpperCase() + rubro.slice(1)}</h3>`;
+        rubroContainer.classList.add('rubro-container');
 
-        const ul = document.createElement('ul');
+        const rubroTitle = document.createElement('h3');
+        rubroTitle.textContent = rubro.charAt(0).toUpperCase() + rubro.slice(1);
+        rubroContainer.appendChild(rubroTitle);
+
+        const table = document.createElement('table');
+        table.innerHTML = `
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Valor Total</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        `;
+        const tbody = table.querySelector('tbody');
         let rubroTotal = 0;
 
         products[rubro].forEach((product, index) => {
             const value = product.price * product.stock;
             rubroTotal += value;
 
-            const li = document.createElement('li');
-            li.innerHTML = `
-                <strong>${product.name}</strong><br>
-                Precio: $${product.price.toFixed(2)}<br>
-                Stock: ${product.stock}<br>
-                Valor Total: $${value.toFixed(2)}
-                <button class="edit-btn" data-rubro="${rubro}" data-index="${index}">Editar</button>
-                <button class="delete-btn" data-rubro="${rubro}" data-index="${index}">Eliminar</button>
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${product.name}</td>
+                <td>$${product.price.toFixed(2)}</td>
+                <td>${product.stock}</td>
+                <td>$${value.toFixed(2)}</td>
+                <td>
+                    <button class="edit-btn" data-rubro="${rubro}" data-index="${index}">Editar</button>
+                    <button class="delete-btn" data-rubro="${rubro}" data-index="${index}">Eliminar</button>
+                </td>
             `;
-            ul.appendChild(li);
+            tbody.appendChild(row);
         });
 
-        const totalLi = document.createElement('li');
-        totalLi.innerHTML = `<strong>Total de ${rubro.charAt(0).toUpperCase() + rubro.slice(1)}:</strong> $${rubroTotal.toFixed(2)}`;
-        totalLi.style.fontWeight = 'bold';
-        ul.appendChild(totalLi);
+        const totalRow = document.createElement('tr');
+        totalRow.innerHTML = `
+            <td colspan="3" style="font-weight: bold;">Total de ${rubro.charAt(0).toUpperCase() + rubro.slice(1)}:</td>
+            <td style="font-weight: bold;">$${rubroTotal.toFixed(2)}</td>
+            <td></td>
+        `;
+        tbody.appendChild(totalRow);
 
-        rubroContainer.appendChild(ul);
+        rubroContainer.appendChild(table);
         productList.appendChild(rubroContainer);
 
         grandTotal += rubroTotal;
